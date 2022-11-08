@@ -1,0 +1,14 @@
+{
+  "Marketing": {
+    "wordpress": ["Pointer 1", "Pointer 2", "Pointer 3"],
+    "Google Drive": ["Pointer 1", "Pointer 2", "Pointer 3"]
+  },
+  "Design": {
+    "Figma": ["Pointer 1", "Pointer 2", "Pointer 3"],
+    "Sketch": ["Pointer 1", "Pointer 2", "Pointer 3"]
+  },
+  "sales": {
+    "Pipedrive": ["Pointer 1", "Pointer 2", "Pointer 3"],
+    "Bitrix24": ["Pointer 1", "Pointer 2", "Pointer 3"]
+  }
+}
