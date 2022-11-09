@@ -3,18 +3,35 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/system";
 import { Button } from "@mui/material";
-import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
-import { useNavigate } from "react-router-dom";
+import AddBoxRoundedIcon from "@mui/icons-material/AddBoxRounded";
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import SopAccess from "../Components/SopAccess";
+import DepartmentAccordions from "../Components/DepartmentAccordions";
+import NewPlanModal from "../Components/NewPlanModal";
 
-// import { Link } from 'react-router-dom';
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "45%",
+  bgcolor: "#F5F5F5",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "8px"
+};
+
 
 function Sop(props) {
-    const navigate = useNavigate();
-    const goToManageAccess = () => {
-      
-        navigate("/access")
-
-    }
+  const [ManageAccessopen, setManageAccessOpen] = React.useState(false);
+  const handleManageAccessOpen = () => setManageAccessOpen(true);
+  const handleManageAccessClose = () => setManageAccessOpen(false);
+  
+  const [NewPlanopen, setNewPlanOpen] = React.useState(false);
+  const handleNewPlanOpen = () => setNewPlanOpen(true);
+  const handleNewPlanClose = () => setNewPlanOpen(false);
 
   return (
     <div
@@ -22,16 +39,14 @@ function Sop(props) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "100%"
+        width: "100%",
       }}
     >
-      <Box sx={{ paddingTop: "120px", width: "90%" }}>
+      <Box sx={{ paddingTop: "5%", width: "90%" }}>
         <Box
           sx={{
             height: "24px",
             width: "96px",
-            left: "120px",
-            top: "120px",
             borderRadius: "nullpx",
           }}
         >
@@ -53,7 +68,9 @@ function Sop(props) {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center"
+            alignItems: "center",
+            flexWrap: "wrap",
+            marginBottom: "20px",
           }}
         >
           <Typography
@@ -71,7 +88,8 @@ function Sop(props) {
           </Typography>
           <Box>
             <Stack spacing={2} direction="row">
-              <Button onClick={goToManageAccess}
+              <Button
+                onClick={handleManageAccessOpen}
                 sx={{
                   textTransform: "capitalize",
                   boxSizing: "border-box",
@@ -137,14 +155,117 @@ function Sop(props) {
                 </svg>
                 Manage Access
               </Button>
-              <Button sx={{                                 
-padding: "8px ",       
-width: "119px",
-height: "40px",
-background: "#2563EB",
-borderRadius: "4px", boxShadow: "none" ,textTransform: "capitalize"}} variant="contained"  startIcon={<AddBoxRoundedIcon/>}>New Plan</Button>
+              {/* --------------------------------Manage Access modal--------------------------- */}
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={ManageAccessopen}
+                onClose={handleManageAccessClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={ManageAccessopen}>
+                  <Box sx={style}>
+                    <SopAccess />
+                    <Stack direction={"row-reverse"} p={2} gap={1}>
+                      <Button
+                        sx={{
+                          padding: "8px",
+                          width: "119px",
+                          height: "40px",
+                          background: "#2563EB",
+                          borderRadius: "4px",
+                          boxShadow: "none",
+                          textTransform: "capitalize",
+                        }}
+                        onClick={handleManageAccessClose}
+                        variant="contained"
+                      >
+                        Update
+                      </Button>
+
+                      <Button
+                        color="error"
+                        variant="outlined"
+                        onClick={handleManageAccessClose}
+                      >
+                        Cancel
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Fade>
+              </Modal>
+              <Button
+                sx={{
+                  padding: "8px ",
+                  width: "119px",
+                  height: "40px",
+                  background: "#2563EB",
+                  borderRadius: "4px",
+                  boxShadow: "none",
+                  textTransform: "capitalize",
+                }}
+                variant="contained"
+                startIcon={<AddBoxRoundedIcon />}
+                onClick={handleNewPlanOpen}
+              >
+                New Plan
+              </Button>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={NewPlanopen}
+                onClose={handleNewPlanClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={NewPlanopen}>
+                  <Box sx={style}>
+                    <NewPlanModal />
+                    <Stack direction={"row-reverse"} p={2} gap={1}>
+                      <Button
+                        sx={{
+                          padding: "8px",
+                          width: "119px",
+                          height: "40px",
+                          background: "#2563EB",
+                          borderRadius: "4px",
+                          boxShadow: "none",
+                          textTransform: "capitalize",
+                        }}
+                        onClick={handleNewPlanClose}
+                        variant="contained"
+                      >
+                        Create
+                      </Button>
+
+                      <Button
+                      sx={{
+                        width: "119px",
+                        textTransform: "capitalize",
+                      }}
+                        color="error"
+                        variant="outlined"
+                        onClick={handleNewPlanClose}
+                      >
+                        Cancel
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Fade>
+              </Modal>
             </Stack>
           </Box>
+        </Box>
+        <Box>
+          <DepartmentAccordions />
+          
         </Box>
       </Box>
     </div>

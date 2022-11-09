@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Sop from "./Pages/sop.jsx";
-import SopAccess from "./Pages/sopAccess";
+import Sop from "./Pages/Sop.jsx";
+import SopAccess from "./Components/SopAccess";
 
 function App() {
   return (
